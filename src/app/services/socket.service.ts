@@ -13,7 +13,7 @@ export class SocketService {
     this.socket = io(this.url)
   }
 
-  listen(eventName: string): Observable<string> {
+  listen(eventName: string): Observable<any> {
     return new Observable(subscriber => {
       this.socket.on(eventName, data => {
         subscriber.next(data)

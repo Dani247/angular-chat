@@ -9,7 +9,7 @@
   width: 80%;
   height: 100%;
   display: grid;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 10% 90%;
 }
 
 #chatInfo {
@@ -18,12 +18,18 @@
   padding: 25px;
 }
 
-#chatFeed {
+#chat {
+  display: grid;
+  grid-template-rows: 85% 15%;
   background: #FFFFFF;
   margin: 20px;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+}
+
+#chatFeed {
   overflow-y: scroll;
-  border-spacing: initial;
-  border-style: groove;
+  padding: 20px;
 }
 
 #chatInput {
@@ -33,14 +39,63 @@
 }
 
 #chatInput input {
-  width: 80%;
+  width: 90%;
   padding: 15px;
+  border-radius: 18px;
+  border: 1px solid #348ddf;
+  outline: none;
+  transition: 0.2s linear;
+}
+
+#chatInput input:focus {
+  border: 2px solid #348ddf;
 }
 
 .message {
   padding: 10px;
+  background: #F1F0F0;
+  width: fit-content;
+  border-radius: 18px; 
+  margin: 10px
+}
+
+.myMessage {
+  padding: 10px;
   background: #1E93D1;
   width: fit-content;
-  border-radius: 40px; 
-  margin: 10px
+  border-radius: 18px; 
+  margin: 10px;
+  color: white;
+}
+
+.messageContent {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+.messageContent img {
+  border-radius: 40%;
+}
+
+#userNameTooltip {
+  border-radius: 18px;
+  padding: 10px;
+  background-color: rgba(235, 90, 92, 0.5);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  color: white
+}
+
+.messageContent:hover {
+  background-color: rgb(194, 194, 194)
+}
+
+.messageContent:hover > #userNameTooltip {
+  opacity: 1;
+}
+
+.messageContent:active > #userNameTooltip {
+  opacity: 1;
 }

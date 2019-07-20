@@ -38,5 +38,66 @@
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  color: white
+}
+
+#logOutCheck {
+  position: absolute;
+  left: 35vw;
+  top: 25vh;
+  width: 30vw;
+  height: 50vh;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+  background-color: #F1F0F0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+#logOutCheck h1 {
+  font-size: 3em;
+}
+
+#logOutCheck #buttons {
+  display: flex;
+  width: 100%;
   justify-content: space-around
+}
+
+#logOut, #stay {
+  font-size: 1em;
+  padding: 10px;
+
+  border-radius: 18px;
+  transition: 0.1s linear;
+}
+
+
+#logOut {
+  background-color: #DD0031;
+  color: white;
+}
+
+#stay {
+  background-color: #1976d2;
+  color: white;
+}
+
+#logOut:hover, #stay:hover {
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+
+#backDrop {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
 }

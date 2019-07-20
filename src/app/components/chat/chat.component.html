@@ -1,19 +1,27 @@
 <div id="chatGrid">
   <div id="chatInfo">
     <div>
-      Online users: 5
+      Online users: {{ chatInfo.onlineUsers }}
     </div>
 
     <div>
-      Total messages: 126
+      Total messages: {{ chatInfo.totalMsgs }}
     </div>
   </div>
 
-  <div id="chatFeed">
-    <div class="message" *ngFor="let msg of messages">{{msg}}</div>
-  </div>
-
-  <div id="chatInput">
-    <input (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text" placeholder="Message">
+  <div id="chat">
+    <div id="chatFeed">
+      <div class="messageContent" *ngFor="let msg of messages">
+        <img [src]="msg.picUrl" width="40" height="40" alt="">
+        <div [ngClass]="setMessageClass(msg.uid)">
+          {{msg.message}}
+        </div>
+        <div id="userNameTooltip"> {{msg.userName}} </div>
+      </div>
+    </div>
+  
+    <div id="chatInput">
+      <input id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text" placeholder="Message">
+    </div>
   </div>
 </div>

@@ -2,6 +2,8 @@
   <div id="loginDiv" (keypress)="onKeyPressHandler($event)">
     <h1>Hello! welcome the my chat app</h1>
     <p>Sign in with GitHub account</p>
-    <button (click)="onLoginClick()">login</button>
+    <div (click)="onLoginClick()" id="loginButton">
+      <i class="fab fa-github"></i> Sign in with Github
+    </div>
   </div>
 </div>

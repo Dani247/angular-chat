@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
+
+import { Message, ChatInfo } from '../../models/Message'
 
 @Component({
   selector: 'app-chat',
@@ -9,9 +11,10 @@ import { HttpService } from '../../services/http.service'
   styleUrls: ['./chat.component.css']
 })
 
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnChanges {
   private message: string;
-  private messages: string[];
+  private messages: Message[];
+  private chatInfo: ChatInfo;
   socket: SocketService;
 
   constructor(SocketService: SocketService, private HttpService: HttpService) {
@@ -20,26 +23,61 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socket.listen('newMsg').subscribe((msg: string) => {
-      console.log(msg)
+    this.socket.listen('newMsg').subscribe((msg: Message) => {
       this.newMessage(msg)
     })
 
-    this.HttpService.getMessages().subscribe((msgs: string[]) => {
-      console.log(msgs)
+    this.socket.listen('chatInfo').subscribe((info: ChatInfo) => {
+      this.chatInfo = info
+    })
+
+    this.HttpService.getMessages().subscribe((msgs: Message[]) => {
       this.messages = msgs
     })
+
+    this.HttpService.getChatInfo().subscribe((info: ChatInfo) => {
+      this.chatInfo = info
+    })
+
+    document.getElementById('chat-input').focus()
   }
 
-  newMessage = (msg: string): void => {
+  ngOnChanges = () => {
+    this.chatScrollBot()
+  }
+
+  chatScrollBot = () => {
+    const scroll = document.getElementById("chatFeed");
+    scroll.scrollTop = scroll.scrollHeight
+  }
+
+  newMessage = (msg: Message): void => {
     this.messages.push(msg)
     console.log(this.messages)
   }
 
+  sendMessage = (msg: string) => {
+    const newMessage: Message = {
+      uid: window.localStorage.getItem('uid'),
+      userName: window.localStorage.getItem('username'),
+      message: msg,
+      picUrl: window.localStorage.getItem('photoURL')
+    } 
+
+    this.socket.emit('msg', newMessage)
+  }
+
   onInputKeyPress = (e: KeyboardEvent): void => {
     if (e.key === 'Enter') {
-      this.socket.emit('msg', this.message)
+      this.sendMessage(this.message)
       this.message = ''
+    }
+  }
+
+  setMessageClass = (uid) => {
+    return {
+      myMessage: window.localStorage.getItem('uid') === uid,
+      message: window.localStorage.getItem('uid') !== uid
     }
   }
 }

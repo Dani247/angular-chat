@@ -12,7 +12,20 @@
     </div>
 
     <div (click)="onLogOutClick()" class="item">
-      Sign Out
+      <i class="fas fa-power-off"></i>
     </div>
   </div>
+</div>
+
+<div *ngIf="logOutCheck">
+  <div id="logOutCheck">
+    <h1>Are you sure?</h1>
+    <p>leaving so soon?</p>
+    <div id="buttons">
+      <div (click)="dontLogOut()" id="stay">NO, Stay!</div>
+      <div (click)="logOut()" id="logOut">Sign me out :(</div>
+    </div>
+  </div>
+
+  <div id="backDrop" (click)="dontLogOut()"></div>
 </div>

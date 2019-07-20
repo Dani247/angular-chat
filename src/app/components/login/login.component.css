@@ -26,6 +26,19 @@
   transition-duration: 100ms;
 }
 
+#loginButton {
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24);
+  padding: 15px;
+  transition: 0.1s linear;
+}
+
+#loginButton:hover {
+  cursor: pointer;
+  padding: 16px;
+  box-shadow: 0 8px 8px rgba(195, 0, 47, 0.5);
+}
+
 @media (max-width: 1024px) {
   #loginDiv {
     width: 100%;

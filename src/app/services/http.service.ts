@@ -13,5 +13,6 @@ export class HttpService {
 
   }
 
-  getMessages = () => this.http.get(this.url + '/getMessages')
+  getMessages = () => this.http.get(this.url + '/messages')
+  getChatInfo = () => this.http.get(this.url + '/chatinfo')
 }

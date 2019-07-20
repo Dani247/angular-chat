@@ -10,18 +10,27 @@ import { fireBase } from '../../firebase/firebase'
 export class NavbarComponent implements OnInit {
   private userName: string = window.localStorage.getItem('username');
   private imgUrl: string = window.localStorage.getItem('photoURL');
+  private logOutCheck: boolean = false;
 
   constructor(private route: Router) { }
 
   ngOnInit() {
   }
-
-  onLogOutClick = async () => {
+  
+  logOut = async () => {
     try {
       await fireBase.logOut()
       this.route.navigate(['login']);
     } catch (error) {
       console.error('logout error', error)
     }
+  }
+
+  onLogOutClick = () => {
+    this.logOutCheck = true
+  }
+
+  dontLogOut = () => {
+    this.logOutCheck = false
   }
 }
