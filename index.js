@@ -11,24 +11,41 @@ let userCount = 0
 // middleware
 app.use(cors())
 
-app.get('/getMessages', (req, res) => {
+app.get('/messages', (req, res) => {
   res.status(200).json(messages)
+})
+
+app.get('/chatinfo', (req, res) => {
+  res.status(200).json({
+    onlineUsers:userCount,
+    totalMsgs:messages.length
+  })
 })
 
 //chat socket
 io.on('connection', socket => {
   console.log('user connected')
   userCount++
-  socket.emit('userCount', userCount)
+  io.emit('chatInfo', {
+    onlineUsers:userCount,
+    totalMsgs:messages.length
+  })
 
   socket.on('msg', msg => {
     messages.push(msg)
-    socket.emit('newMsg', msg)
+    io.emit('newMsg', msg)
+    io.emit('chatInfo', {
+      onlineUsers:userCount,
+      totalMsgs:messages.length
+    })
   })
 
   socket.on('disconnect', (a) => {
     userCount--
-    socket.emit('userCount', userCount)
+    io.emit('chatInfo', {
+      onlineUsers:userCount,
+      totalMsgs:messages.length
+    })
   })
 })
 
