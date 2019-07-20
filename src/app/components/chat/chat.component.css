@@ -1,0 +1,46 @@
+#chatContainer {
+  height: 100%;
+  width: 100%;
+  background: greenyellow;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+#chatGrid {
+  width: 80%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+}
+
+#chatInfo {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 25px;
+}
+
+#chatFeed {
+  background: #FFFFFF;
+  margin: 20px;
+  overflow-y: scroll;
+  border-spacing: initial;
+  border-style: groove;
+}
+
+#chatInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chatInput input {
+  width: 80%;
+  padding: 15px;
+}
+
+.message {
+  padding: 10px;
+  background: #1E93D1;
+  width: fit-content;
+  border-radius: 40px; 
+  margin: 10px
+}

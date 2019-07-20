@@ -1,0 +1,34 @@
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1976D2;
+}
+
+#loginDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+  background-color: #FFFFFF;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-align: center
+}
+
+#loginDiv input {
+  padding: 10px;
+  transition-duration: 100ms;
+}
+
+@media (max-width: 1024px) {
+  #loginDiv {
+    width: 100%;
+    height: 60%;
+  }
+}

@@ -1,0 +1,19 @@
+<div id="chatGrid">
+  <div id="chatInfo">
+    <div>
+      Online users: 5
+    </div>
+
+    <div>
+      Total messages: 126
+    </div>
+  </div>
+
+  <div id="chatFeed">
+    <div class="message" *ngFor="let msg of messages">{{msg}}</div>
+  </div>
+
+  <div id="chatInput">
+    <input (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text" placeholder="Message">
+  </div>
+</div>

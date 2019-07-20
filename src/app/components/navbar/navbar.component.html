@@ -1,0 +1,18 @@
+<div id="navbar">
+  <div class="item">
+    Chat
+  </div>
+  <div class="item">
+    About
+  </div>
+  <div class="userInfo">
+    <div id="profileDiv">
+      <div>{{userName}}</div>
+      <img height="40px" [src]="imgUrl" alt="" srcset="">
+    </div>
+
+    <div (click)="onLogOutClick()" class="item">
+      Sign Out
+    </div>
+  </div>
+</div>
