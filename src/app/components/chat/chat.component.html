@@ -11,12 +11,16 @@
 
   <div id="chat">
     <div id="chatFeed">
-      <div class="messageContent" *ngFor="let msg of messages">
-        <img [src]="msg.picUrl" width="40" height="40" alt="">
+      <div [ngClass]="setSideClass(msg.uid)" *ngFor="let msg of messages">
+        <div *ngIf="isMe(msg.uid)" id="userNameTooltip"> {{msg.userName}} </div>
+        <img *ngIf="!isMe(msg.uid)" [src]="msg.picUrl" width="40" height="40" alt="">
+
         <div [ngClass]="setMessageClass(msg.uid)">
           {{msg.message}}
         </div>
-        <div id="userNameTooltip"> {{msg.userName}} </div>
+
+        <div *ngIf="!isMe(msg.uid)" id="userNameTooltip"> {{msg.userName}} </div>
+        <img *ngIf="isMe(msg.uid)" [src]="msg.picUrl" width="40" height="40" alt="">
       </div>
     </div>
   

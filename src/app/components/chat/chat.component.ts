@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
@@ -11,7 +11,7 @@ import { Message, ChatInfo } from '../../models/Message'
   styleUrls: ['./chat.component.css']
 })
 
-export class ChatComponent implements OnInit, OnChanges {
+export class ChatComponent implements OnInit {
   private message: string;
   private messages: Message[];
   private chatInfo: ChatInfo;
@@ -42,10 +42,6 @@ export class ChatComponent implements OnInit, OnChanges {
     document.getElementById('chat-input').focus()
   }
 
-  ngOnChanges = () => {
-    this.chatScrollBot()
-  }
-
   chatScrollBot = () => {
     const scroll = document.getElementById("chatFeed");
     scroll.scrollTop = scroll.scrollHeight
@@ -74,10 +70,19 @@ export class ChatComponent implements OnInit, OnChanges {
     }
   }
 
-  setMessageClass = (uid) => {
+  setSideClass = (uid:string) => {
     return {
-      myMessage: window.localStorage.getItem('uid') === uid,
-      message: window.localStorage.getItem('uid') !== uid
+      messageContent: true,
+      messageContentRight: this.isMe(uid)
     }
   }
+
+  setMessageClass = (uid:string) => {
+    return {
+      myMessage: this.isMe(uid),
+      message: !this.isMe(uid)
+    }
+  }
+
+  isMe = (uid:string): boolean => window.localStorage.getItem('uid') === uid
 }

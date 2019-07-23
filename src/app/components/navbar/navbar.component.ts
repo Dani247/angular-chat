@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   logOut = async () => {
     try {
       await fireBase.logOut()
-      this.route.navigate(['login']);
+      window.location.reload()
     } catch (error) {
       console.error('logout error', error)
     }

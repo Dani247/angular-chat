@@ -68,12 +68,17 @@
   color: white;
 }
 
-.messageContent {
+.messageContent{
   display: flex;
   align-items: center;
   padding-left: 10px;
   padding-right: 10px
 }
+
+.messageContentRight {
+  justify-content: flex-end
+}
+
 
 .messageContent img {
   border-radius: 40%;
