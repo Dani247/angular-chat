@@ -1,0 +1,50 @@
+.roomItem {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.2);
+  transition-duration: 100ms
+}
+
+.roomItem:hover {
+  box-shadow: 0 15px 15px rgba(10,16,20,.2);
+  padding: 18px;
+  margin: 22px;
+
+}
+
+.createRoomBtn {
+  background: #DD0031;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24);
+}
+
+.createRoomBtn:hover {
+  cursor: pointer
+}
+
+.roomListHeader {
+  background-color: #1E93D1;
+  color: white
+}
+
+.joinBtn {
+  background: #FFFFFF;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24);
+  text-decoration: none;
+}
+
+.joinBtn:hover {
+  cursor: pointer;
+}
+
+.roomItem div {
+  width: 33%;
+  text-align: center
+}

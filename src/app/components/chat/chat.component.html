@@ -1,31 +1,32 @@
 <div id="chatGrid">
   <div id="chatInfo">
     <div>
-      Online users: {{ chatInfo.onlineUsers }}
+      Online users:
     </div>
 
     <div>
-      Total messages: {{ chatInfo.totalMsgs }}
+      Total messages:
     </div>
   </div>
 
   <div id="chat">
     <div id="chatFeed">
-      <div [ngClass]="setSideClass(msg.uid)" *ngFor="let msg of messages">
-        <div *ngIf="isMe(msg.uid)" id="userNameTooltip"> {{msg.userName}} </div>
-        <img *ngIf="!isMe(msg.uid)" [src]="msg.picUrl" width="40" height="40" alt="">
+      <div [ngClass]="setSideClass(msg.user.uid)" *ngFor="let msg of roomInfo.messages">
+        <div *ngIf="isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
+        <img *ngIf="!isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">
 
-        <div [ngClass]="setMessageClass(msg.uid)">
+        <div [ngClass]="setMessageClass(msg.user.uid)">
           {{msg.message}}
         </div>
 
-        <div *ngIf="!isMe(msg.uid)" id="userNameTooltip"> {{msg.userName}} </div>
-        <img *ngIf="isMe(msg.uid)" [src]="msg.picUrl" width="40" height="40" alt="">
+        <div *ngIf="!isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
+        <img *ngIf="isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">
       </div>
     </div>
-  
+
     <div id="chatInput">
-      <input id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text" placeholder="Message">
+      <input id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
+        placeholder="Message">
     </div>
   </div>
 </div>

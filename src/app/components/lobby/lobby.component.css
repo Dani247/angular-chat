@@ -1,0 +1,100 @@
+app-lobby {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+app-chats-list {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+}
+
+#closeAddRoomBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#closeAddRoomBtn i {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(10,16,20,.2);
+  transition-duration: 200ms
+}
+
+#closeAddRoomBtn i:hover {
+  box-shadow: 0 5px 5px rgba(10,16,20,.4);
+}
+
+#closeAddRoomBtn i:active {
+  box-shadow: 0 5px 5px rgba(10,16,20,.7);
+}
+
+#createRoomContainer {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backDrop {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
+}
+
+#createRoom {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #FFFFFF;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+  z-index: 2;
+}
+
+#createRoom * {
+  padding: 10px;
+  margin: 5px;
+}
+
+#createRoom input {
+  width: 90%;
+  padding: 15px;
+  border-radius: 18px;
+  border: 1px solid #348ddf;
+  outline: none;
+  transition: 0.1s linear;
+}
+
+#createRoom input:focus {
+  border: 2px solid #348ddf;
+}
+
+#createRoom button {
+  width: 50%;
+}
+
+.charLeftDisplay{
+  text-align: start;
+  width: 80%;
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+}

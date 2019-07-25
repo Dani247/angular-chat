@@ -1,0 +1,27 @@
+<div class="roomItem roomListHeader">
+  <div class="roomName">
+    Room name
+  </div>
+  <div class="roomOwner">
+    Room owner
+  </div>
+  <div class="createRoomBtn" (click)="onShowCreateRoomClick()">
+    CREATE ROOM
+  </div>
+</div>
+
+<div *ngIf="!roomList.length" class="roomItem">
+  No rooms yet
+</div>
+
+<div *ngFor="let room of roomList.reverse()" class="roomItem">
+  <div class="roomName">
+    {{room.roomName}}
+  </div>
+  <div class="roomOwner">
+    {{room.roomOwner.userName}}
+  </div>
+  <div class="joinBtn" (click)="joinRoom(room.roomId)">
+    JOIN
+  </div>
+</div>

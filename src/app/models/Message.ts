@@ -1,11 +1,12 @@
+import { User } from './User'
+
 export interface Message {
-  uid:string;
-  userName:string;
-  message:string;
-  picUrl:string
+  message: string,
+  user: User,
+  roomId: string
 }
 
 export interface ChatInfo {
-  onlineUsers:number,
-  totalMsgs:number
+  onlineUsers: number,
+  totalMsgs: number
 }

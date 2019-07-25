@@ -11,6 +11,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { LobbyComponent } from './components/lobby/lobby.component';
+import { ChatsListComponent } from './components/chats-list/chats-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ChatComponent } from './components/chat/chat.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    LobbyComponent,
+    ChatsListComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Room } from '../models/Room';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,13 @@ export class HttpService {
 
   }
 
-  getMessages = () => this.http.get(this.url + '/messages')
+  getRoom = (roomId: string) => this.http.get(this.url + '/room/' + roomId)
   getChatInfo = () => this.http.get(this.url + '/chatinfo')
+
+  createRoom = (room: Room) => this.http.post(this.url + '/room', room, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  getRoomList = (): Observable<Room[]> => this.http.get<Room[]>(this.url + '/rooms')
 }
