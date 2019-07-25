@@ -1,12 +1,29 @@
 <div class="roomItem roomListHeader">
-  <div class="roomName">
-    Room name
+  <div class="rowContainer">
+    <div class="onlineUsers filterBtn" (click)="sort(0)">
+      <i class="fas fa-users"></i> Online users
+      <i *ngIf="!sortByOnlineUsers" class="fas fa-angle-down"></i>
+      <i *ngIf="sortByOnlineUsers" class="fas fa-angle-up"></i>
+    </div>
   </div>
-  <div class="roomOwner">
-    Room owner
+  <div class="rowContainer">
+    <div class="roomName filterBtn" (click)="sort(1)">
+      <i class="fas fa-comment-dots"></i> Room name
+      <i *ngIf="!sortByRoomName" class="fas fa-angle-down"></i>
+      <i *ngIf="sortByRoomName" class="fas fa-angle-up"></i>
+    </div>
   </div>
-  <div class="createRoomBtn" (click)="onShowCreateRoomClick()">
-    CREATE ROOM
+  <div class="rowContainer">
+    <div class="roomOwner filterBtn" (click)="sort(2)">
+      <i class="fas fa-user-tie"></i> Room owner
+      <i *ngIf="!sortByRoomOwner" class="fas fa-angle-down"></i>
+      <i *ngIf="sortByRoomOwner" class="fas fa-angle-up"></i>
+    </div>
+  </div>
+  <div class="rowContainer">
+    <div class="createRoomBtn" (click)="onShowCreateRoomClick()">
+      <i class="fas fa-comment-medical"></i> CREATE ROOM
+    </div>
   </div>
 </div>
 
@@ -15,13 +32,24 @@
 </div>
 
 <div *ngFor="let room of roomList.reverse()" class="roomItem">
-  <div class="roomName">
-    {{room.roomName}}
+  <div class="rowContainer">
+    <div class="onlineUsers">
+      {{room.onlineUsers.length}} / 20
+    </div>
   </div>
-  <div class="roomOwner">
-    {{room.roomOwner.userName}}
+  <div class="rowContainer">
+    <div class="roomName">
+      {{room.roomName}}
+    </div>
   </div>
-  <div class="joinBtn" (click)="joinRoom(room.roomId)">
-    JOIN
+  <div class="rowContainer">
+    <div class="roomOwner">
+      {{room.roomOwner.userName}}
+    </div>
+  </div>
+  <div class="rowContainer">
+    <div class="joinBtn" (click)="joinRoom(room.roomId)">
+      JOIN
+    </div>
   </div>
 </div>

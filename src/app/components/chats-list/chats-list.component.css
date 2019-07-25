@@ -4,19 +4,13 @@
   align-items: center;
   padding: 20px;
   margin: 20px;
+  height: 45px;
   box-shadow: 0 8px 8px rgba(10,16,20,.2);
   transition-duration: 100ms
 }
 
-.roomItem:hover {
-  box-shadow: 0 15px 15px rgba(10,16,20,.2);
-  padding: 18px;
-  margin: 22px;
-
-}
-
 .createRoomBtn {
-  background: #DD0031;
+  background: #EB5A5C;
   color: white;
   padding: 5px;
   border-radius: 10px;
@@ -24,7 +18,8 @@
 }
 
 .createRoomBtn:hover {
-  cursor: pointer
+  cursor: pointer;
+  box-shadow: 0 15px 15px rgba(10,16,20,.24);
 }
 
 .roomListHeader {
@@ -42,9 +37,25 @@
 
 .joinBtn:hover {
   cursor: pointer;
+  box-shadow: 0 15px 15px rgba(10,16,20,.24);
 }
 
-.roomItem div {
-  width: 33%;
-  text-align: center
+.rowContainer {
+  text-align: center;
+  height: 100%;
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.rowContainer div {
+  width: 80%;
+  height: 60%
+}
+
+.filterBtn:hover {
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24);
 }

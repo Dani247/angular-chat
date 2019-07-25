@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Message, ChatInfo } from '../../models/Message'
 import { User } from '../../models/User'
 import { Room } from 'src/app/models/Room';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-chat',
@@ -14,19 +15,33 @@ import { Room } from 'src/app/models/Room';
   styleUrls: ['./chat.component.css']
 })
 
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   private message: string = '';
   private messages: Message[];
   private chatInfo: ChatInfo;
-  private roomInfo: Room;
+  private roomInfo: Room = {
+    roomId: null,
+    roomName: null,
+    roomOwner: null,
+    messages: [],
+    onlineUsers: []
+  };
+  private me: User = {
+    uid: window.localStorage.getItem('uid'),
+    userName: window.localStorage.getItem('username'),
+    picUrl: window.localStorage.getItem('photoURL')
+  }
   private roomId: string = ''
+
   socket: SocketService;
   route: ActivatedRoute
+  navRoute: Router
 
-  constructor(SocketService: SocketService, private HttpService: HttpService, aRoute: ActivatedRoute) {
+  constructor(SocketService: SocketService, private HttpService: HttpService, aRoute: ActivatedRoute, route: Router) {
     this.socket = SocketService
     this.messages = []
     this.route = aRoute
+    this.navRoute = route
   }
 
   ngOnInit() {
@@ -37,8 +52,15 @@ export class ChatComponent implements OnInit {
     this.HttpService.getRoom(this.roomId).subscribe((room: Room) => {
       this.roomInfo = room
       this.messages = room.messages
-      console.log('room info', room)
-    })
+    },
+      (err) => {
+        console.log(err)
+        this.navRoute.navigate(['/'])
+      })
+
+    this.socket.listen('roomInfo-' + this.roomId).subscribe(
+      (data: Room) => this.roomInfo = data
+    )
 
     this.socket.listen('msg-' + this.roomId).subscribe((msg: Message) => {
       this.roomInfo.messages.push(msg)
@@ -46,11 +68,16 @@ export class ChatComponent implements OnInit {
       // this.newMessage(msg)
     })
 
-    // this.socket.listen('chatInfo').subscribe((info: ChatInfo) => {
-    //   this.chatInfo = info
-    // })
+    this.socket.emit('join-room', { roomId: this.roomId, user: this.me })
+
+    window.addEventListener('beforeunload', () => this.socket.emit('leave-room', { roomId: this.roomId, user: this.me }))
 
     document.getElementById('chat-input').focus()
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('beforeunload', () => { })
+    this.socket.emit('leave-room', { roomId: this.roomId, user: this.me })
   }
 
   chatScrollBot = () => {
@@ -102,5 +129,5 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  isMe = (uid: string): boolean => window.localStorage.getItem('uid') === uid
+  isMe = (uid: string): boolean => this.me.uid === uid
 }

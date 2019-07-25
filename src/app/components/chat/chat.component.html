@@ -1,11 +1,20 @@
 <div id="chatGrid">
   <div id="chatInfo">
-    <div>
-      Online users:
+    <div class="roomMeta">
+      <div>{{roomInfo.roomName}}</div>
     </div>
 
-    <div>
-      Total messages:
+    <div class="roomStats">
+      <div>Total messages: {{roomInfo.messages.length}}</div>
+    </div>
+
+    <div class="roomUsers">
+      <div *ngFor="let user of roomInfo.onlineUsers" class="onlineUser">
+        <img [src]="user.picUrl" width="40" alt="">
+        <div class="userName">
+          {{user.userName}}
+        </div>
+      </div>
     </div>
   </div>
 
