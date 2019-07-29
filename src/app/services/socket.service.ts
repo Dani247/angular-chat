@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SocketService {
   socket: any;
-  readonly url: string = 'https://sockets-chat-api.herokuapp.com';
+  readonly url: string = 'http://localhost:3001';
 
   constructor() {
     this.socket = io(this.url)

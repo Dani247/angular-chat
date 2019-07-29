@@ -1,24 +1,34 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 // services
 import { HttpService } from '../../services/http.service'
 import { SocketService } from '../../services/socket.service'
 import { Room } from 'src/app/models/Room';
+import { User } from 'src/app/models/User';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chats-list',
   templateUrl: './chats-list.component.html',
   styleUrls: ['./chats-list.component.css']
 })
-export class ChatsListComponent implements OnInit {
+export class ChatsListComponent implements OnInit, OnDestroy {
   @Input() showCreateRoomClick: any
+  @Input() showDeleteRoomClick: any
 
   socket: SocketService;
   router: Router
 
+  private subscribers: Subscription[] = []
   private loading: boolean = false
   private roomList: Array<Room> = []
+
+  private me: User = {
+    uid: window.localStorage.getItem('uid'),
+    userName: window.localStorage.getItem('username'),
+    picUrl: window.localStorage.getItem('photoURL')
+  }
 
   // sort booleans
   private sortByOnlineUsers: boolean = null
@@ -32,18 +42,22 @@ export class ChatsListComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true
-    this.HttpService.getRoomList().subscribe((res: Array<Room>) => {
-      // set all current rooms
-      this.roomList = res
-      console.log('getRoomList', this.roomList)
-
+    this.subscribers = [
+      this.HttpService.getRoomList().subscribe((res: Array<Room>) => {
+        // set all current rooms
+        this.roomList = res
+        console.log('getRoomList', this.roomList)
+      }),
       // listen to any change
       this.socket.listen('chat-list').subscribe((rooms: Array<Room>) => {
         this.roomList = rooms
       })
+    ]
+    this.loading = false
+  }
 
-      this.loading = false
-    })
+  ngOnDestroy() {
+    this.subscribers.forEach(sub => sub.unsubscribe())
   }
 
   joinRoom = (roomId): void => {
@@ -93,5 +107,11 @@ export class ChatsListComponent implements OnInit {
         break;
       default: break;
     }
+  }
+
+  isMe = (uid: string): boolean => this.me.uid === uid
+
+  deleteRoom = (roomId: string): void => {
+    alert(`deleting ${roomId}`)
   }
 }

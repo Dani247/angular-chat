@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, DoCheck, AfterViewChecked } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Message, ChatInfo } from '../../models/Message'
+import { Message } from '../../models/Message'
 import { User } from '../../models/User'
 import { Room } from 'src/app/models/Room';
-import { ThrowStmt } from '@angular/compiler';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -15,10 +15,10 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./chat.component.css']
 })
 
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  private subscribers: Subscription[]
   private message: string = '';
   private messages: Message[];
-  private chatInfo: ChatInfo;
   private roomInfo: Room = {
     roomId: null,
     roomName: null,
@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     picUrl: window.localStorage.getItem('photoURL')
   }
   private roomId: string = ''
+  private editingName: boolean = false
 
   socket: SocketService;
   route: ActivatedRoute
@@ -45,49 +46,61 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.roomId = params['roomId']
-    })
-
-    this.HttpService.getRoom(this.roomId).subscribe((room: Room) => {
-      this.roomInfo = room
-      this.messages = room.messages
-    },
-      (err) => {
-        console.log(err)
-        this.navRoute.navigate(['/'])
-      })
-
-    this.socket.listen('roomInfo-' + this.roomId).subscribe(
-      (data: Room) => this.roomInfo = data
-    )
-
-    this.socket.listen('msg-' + this.roomId).subscribe((msg: Message) => {
-      this.roomInfo.messages.push(msg)
-      console.log('new message', msg)
-      // this.newMessage(msg)
-    })
+    // subscribers array
+    this.subscribers = [
+      // get room id
+      this.route.params.subscribe((params: Params) => {
+        this.roomId = params['roomId']
+      }),
+      // get room info by id
+      this.HttpService.getRoom(this.roomId).subscribe(
+        (room: Room) => {
+          this.roomInfo = room
+          this.messages = room.messages
+        },
+        (err) => {
+          console.log(err)
+          this.navRoute.navigate(['/'])
+        }
+      ),
+      // socket listener for romm info updates
+      this.socket.listen('roomInfo-' + this.roomId).subscribe(
+        (data: Room) => this.roomInfo = data
+      ),
+      // socket listener for new room messages
+      this.socket.listen('msg-' + this.roomId).subscribe(
+        (msg: Message) => {
+          this.roomInfo.messages.push(msg)
+          this.updateScroll()
+        }
+      )
+    ]
 
     this.socket.emit('join-room', { roomId: this.roomId, user: this.me })
-
     window.addEventListener('beforeunload', () => this.socket.emit('leave-room', { roomId: this.roomId, user: this.me }))
-
     document.getElementById('chat-input').focus()
   }
 
   ngOnDestroy() {
+    this.subscribers.forEach(sub => {
+      sub.unsubscribe()
+    })
+
     window.removeEventListener('beforeunload', () => { })
     this.socket.emit('leave-room', { roomId: this.roomId, user: this.me })
   }
 
-  chatScrollBot = () => {
-    const scroll = document.getElementById("chatFeed");
-    scroll.scrollTop = scroll.scrollHeight
+  ngAfterViewChecked() {
+    this.updateScroll()
+  }
+
+  updateScroll() {
+    let element = document.getElementById("chatFeed");
+    element.scrollTop = element.scrollHeight;
   }
 
   newMessage = (msg: Message): void => {
     this.messages.push(msg)
-    console.log(this.messages)
   }
 
   sendMessage = (msg: string) => {
@@ -102,8 +115,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       user,
       roomId: this.roomId
     }
-
-    console.log('sending message', newMessage)
 
     this.socket.emit('msg', newMessage)
   }
@@ -130,4 +141,25 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   isMe = (uid: string): boolean => this.me.uid === uid
+
+  toggleEditName = (): void => {
+    if (this.me.uid === this.roomInfo.roomOwner.uid) {
+      this.editingName = !this.editingName
+    }
+  }
+
+  onEditInputKeyPress = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter') {
+      this.editName()
+    }
+  }
+
+  editName = (): void => {
+    this.HttpService.editRoomName(this.roomId, this.roomInfo.roomName).subscribe(
+      () => {
+        this.toggleEditName()
+      },
+      err => console.error(err)
+    )
+  }
 }

@@ -18,6 +18,8 @@ export class LobbyComponent implements OnInit {
   private roomName: string = ''
   private loading: boolean = false
   private showCreateRoom: boolean = false
+  private showDeleteRoom: boolean = false
+  private deletingId: string = ''
 
   constructor(SocketService: SocketService, private HttpService: HttpService) {
     this.socket = SocketService
@@ -59,12 +61,34 @@ export class LobbyComponent implements OnInit {
   }
 
   onShowCreateRoomClick = (): void => {
-    this.roomName = ''
-    this.showCreateRoom = !this.showCreateRoom
+    if (!this.loading) {
+      this.roomName = ''
+      this.showCreateRoom = !this.showCreateRoom
+    }
+  }
+
+  onShowDeleteRoomClick = (id: string): void => {
+    this.deletingId = id
+    if (!this.loading) this.showDeleteRoom = !this.showDeleteRoom
+  }
+
+  deleteChat = (): void => {
+    this.loading = true
+    this.HttpService.deleteRoom(this.deletingId).subscribe(
+      () => {
+        this.socket.emit('room-deleted', true)
+        this.loading = false
+        this.showDeleteRoom = !this.showDeleteRoom
+      },
+      (error) => {
+        console.error(error)
+        this.loading = false
+        this.showDeleteRoom = !this.showDeleteRoom
+      }
+    )
   }
 
   onAddRoomInputKeyPress = (e: KeyboardEvent): void => {
-    console.log(e)
     if (e.key === 'Enter') {
       this.onCreateRoomClick()
     } else if (e.key === 'Escape') {

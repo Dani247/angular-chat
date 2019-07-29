@@ -1,17 +1,37 @@
 <div *ngIf="showCreateRoom" id="createRoomContainer" (keydown)="onAddRoomInputKeyPress($event)">
 
-  <div id="createRoom">
+  <div class="createRoom">
     <div id="closeAddRoomBtn">
       Create a room
       <i (click)="onShowCreateRoomClick()" class="far fa-times-circle"></i>
     </div>
     <input id="addRoomInput" type="text" placeholder="Room name (max 20 char)" maxlength="20" [(ngModel)]="roomName">
     <label class="charLeftDisplay" *ngIf="roomName">{{20 - roomName.length}} characters left</label>
-    <button [disabled]="loading" (click)="onCreateRoomClick()">{{ loading ? 'Creating...' : 'Create' }}</button>
+    <div class="createBtn" (click)="onCreateRoomClick()">{{ loading ? 'Creating...' : 'Create!' }}</div>
   </div>
 
   <div (click)="onShowCreateRoomClick()" class="backDrop"></div>
 </div>
 
+<div *ngIf="showDeleteRoom" id="createRoomContainer">
+  <div class="createRoom" *ngIf="!loading">
+    <div id="closeAddRoomBtn">
+      Delete room
+      <i (click)="onShowDeleteRoomClick()" class="far fa-times-circle"></i>
+    </div>
+    <h2>Are you sure?</h2>
+    <div class="sureBtns">
+      <div (click)="onShowDeleteRoomClick()">No</div>
+      <div (click)="deleteChat()">Yes</div>
+    </div>
+  </div>
 
-<app-chats-list [showCreateRoomClick]="onShowCreateRoomClick"></app-chats-list>
+  <div class="createRoom" *ngIf="loading">Deleting...</div>
+
+  <div (click)="onShowDeleteRoomClick()" class="backDrop"></div>
+</div>
+
+
+
+<app-chats-list [showDeleteRoomClick]="onShowDeleteRoomClick" [showCreateRoomClick]="onShowCreateRoomClick">
+</app-chats-list>

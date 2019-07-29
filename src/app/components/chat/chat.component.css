@@ -42,6 +42,7 @@
 }
 
 #chatInput input {
+  font-size: 100%;
   width: 90%;
   padding: 15px;
   border-radius: 18px;
@@ -75,7 +76,8 @@
   display: flex;
   align-items: center;
   padding-left: 10px;
-  padding-right: 10px
+  padding-right: 10px;
+  transition-duration: 500ms
 }
 
 .messageContentRight {
@@ -91,7 +93,7 @@
   border-radius: 18px;
   padding: 10px;
   background-color: rgba(235, 90, 92, 0.5);
-  opacity: 0;
+  opacity: 0.08;
   transition: opacity 0.2s ease-out;
   color: white
 }
@@ -102,6 +104,7 @@
 
 .messageContent:hover > #userNameTooltip {
   opacity: 1;
+  background-color: rgba(235, 90, 92, 0.6);
 }
 
 .messageContent:active > #userNameTooltip {
@@ -141,4 +144,18 @@
   flex-direction: column;
   justify-content: center;
   text-decoration: underline;
+}
+
+#editNameInput {
+  font-size: 50%;
+  width: 90%;
+  padding: 15px;
+  border-radius: 18px;
+  border: 1px solid #348ddf;
+  outline: none;
+  transition: 0.1s linear;
+}
+
+#editNameInput:focus {
+  border: 2px solid #348ddf;
 }

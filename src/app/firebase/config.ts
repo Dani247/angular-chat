@@ -1,5 +1,5 @@
 export const config = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: "AIzaSyCQKjbA4OIEgnLIGOGAbiB8mX6H1iNUH8k",
   authDomain: "my-chat-3e662.firebaseapp.com",
   databaseURL: "https://my-chat-3e662.firebaseio.com",
   projectId: "my-chat-3e662",

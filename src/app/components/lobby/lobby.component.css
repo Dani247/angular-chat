@@ -56,7 +56,7 @@ app-chats-list {
   z-index: 1;
 }
 
-#createRoom {
+.createRoom {
   width: 30%;
   display: flex;
   justify-content: center;
@@ -69,12 +69,12 @@ app-chats-list {
   z-index: 2;
 }
 
-#createRoom * {
+.createRoom * {
   padding: 10px;
   margin: 5px;
 }
 
-#createRoom input {
+.createRoom input {
   width: 90%;
   padding: 15px;
   border-radius: 18px;
@@ -83,11 +83,11 @@ app-chats-list {
   transition: 0.1s linear;
 }
 
-#createRoom input:focus {
+.createRoom input:focus {
   border: 2px solid #348ddf;
 }
 
-#createRoom button {
+.createRoom button {
   width: 50%;
 }
 
@@ -97,4 +97,44 @@ app-chats-list {
   font-size: 10px;
   padding: 0;
   margin: 0;
+}
+
+.sureBtns {
+  text-align: center;
+  height: 100%;
+  width: 25%;
+  display: -webkit-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sureBtns div {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(10,16,20,.2);
+  transition-duration: 200ms
+}
+
+.sureBtns div:nth-child(2n) {
+  background-color: #EB5A5C;
+  color: white
+}
+
+.sureBtns div:hover {
+  box-shadow: 0 5px 5px rgba(10,16,20,.4);
+}
+
+.createBtn { 
+  background: rgb(41, 202, 65);
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24);
+  transition: 200ms linear
+}
+
+.createBtn:hover {
+  cursor: pointer;
+  box-shadow: 0 15px 15px rgba(10,16,20,.24);
 }

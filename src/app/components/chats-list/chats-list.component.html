@@ -14,14 +14,14 @@
     </div>
   </div>
   <div class="rowContainer">
-    <div class="roomOwner filterBtn" (click)="sort(2)">
+    <div class="filterBtn" (click)="sort(2)">
       <i class="fas fa-user-tie"></i> Room owner
       <i *ngIf="!sortByRoomOwner" class="fas fa-angle-down"></i>
       <i *ngIf="sortByRoomOwner" class="fas fa-angle-up"></i>
     </div>
   </div>
   <div class="rowContainer">
-    <div class="createRoomBtn" (click)="onShowCreateRoomClick()">
+    <div class="createRoomBtn" (click)="showCreateRoomClick()">
       <i class="fas fa-comment-medical"></i> CREATE ROOM
     </div>
   </div>
@@ -44,12 +44,18 @@
   </div>
   <div class="rowContainer">
     <div class="roomOwner">
-      {{room.roomOwner.userName}}
+      <img [src]="room.roomOwner.picUrl" width="40">
+      <div>
+        {{room.roomOwner.userName}}
+      </div>
     </div>
   </div>
   <div class="rowContainer">
     <div class="joinBtn" (click)="joinRoom(room.roomId)">
-      JOIN
+      <i class="fas fa-sign-in-alt"></i> JOIN
+    </div>
+    <div *ngIf="isMe(room.roomOwner.uid)" class="deleteBtn" (click)="showDeleteRoomClick(room.roomId)">
+      <i class="fas fa-trash"></i> DELETE
     </div>
   </div>
 </div>

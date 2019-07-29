@@ -23,4 +23,8 @@ export class HttpService {
     }
   })
   getRoomList = (): Observable<Room[]> => this.http.get<Room[]>(this.url + '/rooms')
+
+  deleteRoom = (roomId: string) => this.http.delete(this.url + '/room/' + roomId)
+
+  editRoomName = (roomId: string, roomName: string) => this.http.patch(this.url + '/roomname/' + roomId, { roomName })
 }

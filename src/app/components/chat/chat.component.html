@@ -1,7 +1,9 @@
 <div id="chatGrid">
   <div id="chatInfo">
     <div class="roomMeta">
-      <div>{{roomInfo.roomName}}</div>
+      <div *ngIf="!editingName" (click)="toggleEditName()">{{roomInfo.roomName}}</div>
+      <input maxlength="20" id="editNameInput" (blur)="toggleEditName()" *ngIf="editingName"
+        [(ngModel)]="roomInfo.roomName" type="text" (keypress)="onEditInputKeyPress($event)">
     </div>
 
     <div class="roomStats">
@@ -34,7 +36,7 @@
     </div>
 
     <div id="chatInput">
-      <input id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
+      <input autocomplete="off" id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
         placeholder="Message">
     </div>
   </div>
