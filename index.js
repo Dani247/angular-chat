@@ -45,6 +45,40 @@ app.post('/room', (req, res) => {
   }
 })
 
+app.patch('/roomname/:roomId', (req, res) => {
+  const { roomName } = req.body
+  const { roomId } = req.params
+
+  const roomIndex = rooms.findIndex(room => {
+    return room.roomId === req.params.roomId
+  })
+
+  if (roomIndex >= 0) {
+    rooms[roomIndex].roomName = roomName
+    io.emit('roomInfo-' + roomId, rooms[roomIndex])
+    io.emit('chat-list', rooms)
+    res.status(200).json(rooms)
+  } else {
+    res.status(404).json({ msg: 'room not found' })
+  }
+})
+
+app.delete('/room/:roomId', (req, res) => {
+  const room = rooms.find(room => {
+    return room.roomId === req.params.roomId
+  })
+
+  if (room) {
+    rooms = rooms.filter(room => {
+      return room.roomId !== req.params.roomId
+    })
+
+    res.status(200).json(rooms)
+  } else {
+    res.status(404).json({ msg: 'room not found' })
+  }
+})
+
 //chat socket
 io.on('connection', socket => {
   // room creation
@@ -56,6 +90,11 @@ io.on('connection', socket => {
   // room closed
   socket.on('room-closed', () => {
     // emit room list
+    io.emit('chat-list', rooms)
+  })
+
+  // room deleted
+  socket.on('room-deleted', () => {
     io.emit('chat-list', rooms)
   })
 
