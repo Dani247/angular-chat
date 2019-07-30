@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { fireBase } from '../firebase/firebase'
+import { AuthDataService } from '../services/auth-data.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthGuard implements CanActivate {
   private router: Router;
+  private isAuth: boolean = false;
 
-  constructor(router: Router) {
+  constructor(router: Router, auth: AuthDataService) {
+    auth.getUser().subscribe(me => me.uid ? this.isAuth = true : this.isAuth = false);
     this.router = router;
   }
 
-  canActivate = () => {
-    if (fireBase.isAuth()) {
-      return true;
-    }
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login']);
-    return false;
-  }
+  canActivate = () => this.isAuth ? true : this.router.navigate(['/login']); false;
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, OnChanges, DoCheck, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
+import { AuthDataService } from '../../services/auth-data.service'
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Message } from '../../models/Message'
@@ -26,11 +27,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     messages: [],
     onlineUsers: []
   };
-  private me: User = {
-    uid: window.localStorage.getItem('uid'),
-    userName: window.localStorage.getItem('username'),
-    picUrl: window.localStorage.getItem('photoURL')
-  }
+  private me: User;
   private roomId: string = ''
   private editingName: boolean = false
 
@@ -38,7 +35,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   route: ActivatedRoute
   navRoute: Router
 
-  constructor(SocketService: SocketService, private HttpService: HttpService, aRoute: ActivatedRoute, route: Router) {
+  constructor(SocketService: SocketService, private HttpService: HttpService, aRoute: ActivatedRoute, route: Router, auth: AuthDataService) {
+    auth.getUser().subscribe(me => this.me = me)
     this.socket = SocketService
     this.messages = []
     this.route = aRoute
@@ -73,6 +71,13 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.roomInfo.messages.push(msg)
           this.updateScroll()
         }
+      ),
+      // socket listener in case the room is deleted
+      this.socket.listen('deleted-' + this.roomId).subscribe(
+        () => {
+          alert('room deleted')
+          this.navRoute.navigate(['/'])
+        }
       )
     ]
 
@@ -104,15 +109,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   sendMessage = (msg: string) => {
-    const user: User = {
-      uid: window.localStorage.getItem('uid'),
-      userName: window.localStorage.getItem('username'),
-      picUrl: window.localStorage.getItem('photoURL')
-    }
-
     const newMessage: Message = {
       message: this.message,
-      user,
+      user: this.me,
       roomId: this.roomId
     }
 

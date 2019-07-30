@@ -1,33 +1,37 @@
 #navbar {
-  width: 100%;
+  width: 80%;
   height: 100%;
-  background-color: #1976D2;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-.item {
+.items {
+  display: flex;
+  height: 100%;
+}
+
+.items div {
   height: 100%;
   margin-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 10vw;
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: white;
 }
 
-.item:hover {
+.items div:hover {
   cursor: pointer;
   color: #8FBDE9;
   background-color: #3184D7;
 }
 
 .userInfo {
-  width:20vw;
-  right: 0;
-  position: fixed;
+  width: 20%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around
@@ -42,63 +46,110 @@
   color: white
 }
 
-#logOutCheck {
+#profileDiv img {
+  height: 100%;
+}
+
+.logOutCheckContainer {
   position: absolute;
-  left: 35vw;
-  top: 25vh;
-  width: 30vw;
-  height: 50vh;
-  border-radius: 4px;
-  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
-  background-color: #F1F0F0;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logOutCheck {
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: #FFFFFF;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
   z-index: 2;
-  font-family: 'Noto Sans JP', sans-serif;
 }
 
-#logOutCheck h1 {
-  font-size: 3em;
-}
-
-#logOutCheck #buttons {
-  display: flex;
-  width: 100%;
-  justify-content: space-around
-}
-
-#logOut, #stay {
-  font-size: 1em;
-  padding: 10px;
-
-  border-radius: 18px;
-  transition: 0.1s linear;
-}
-
-
-#logOut {
-  background-color: #DD0031;
-  color: white;
-}
-
-#stay {
-  background-color: #1976d2;
-  color: white;
-}
-
-#logOut:hover, #stay:hover {
-  padding-left: 15px;
-  padding-right: 15px;
-  cursor: pointer;
-}
-
-#backDrop {
+.backDrop {
   position: absolute;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   width: 100vw;
   height: 100vh;
   top: 0;
   z-index: 1;
 }
+
+.sureBtns {
+  text-align: center;
+  height: 100%;
+  width: 40%;
+  display: -webkit-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sureBtns div {
+  width: 40%;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(10,16,20,.2);
+  transition-duration: 200ms;
+  padding: 10px
+}
+
+.sureBtns div:nth-child(2n) {
+  background-color: #EB5A5C;
+  color: white
+}
+
+.sureBtns div:hover {
+  box-shadow: 0 5px 5px rgba(10,16,20,.4);
+}
+
+.closeSignOutBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.closeSignOutBtn i {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(10,16,20,.2);
+  transition-duration: 200ms;
+  padding: 10px
+}
+
+.closeSignOutBtn i:hover {
+  box-shadow: 0 5px 5px rgba(10,16,20,.4);
+}
+
+.closeSignOutBtn i:active {
+  box-shadow: 0 5px 5px rgba(10,16,20,.7);
+}
+
+.logoutBtn i {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  transition-duration: 200ms;
+  padding: 0.5em;
+  background: white
+}
+
+.logoutBtn i:hover {
+  box-shadow: 0 5px 5px rgba(0, 144, 240, 1);
+}
+
+@media (max-width: 1280px) {
+  .items div {
+    font-size: 1.5vw;
+  }
+}
+
+

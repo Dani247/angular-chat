@@ -1,22 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { fireBase } from '../../firebase/firebase'
+
+// services
+import { AuthDataService } from '../../services/auth-data.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
-  private userName: string = window.localStorage.getItem('username');
-  private imgUrl: string = window.localStorage.getItem('photoURL');
+export class NavbarComponent implements OnInit, OnDestroy {
+  private subscribers: Subscription[]
+  private userName: string
+  private imgUrl: string
   private logOutCheck: boolean = false;
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private auth: AuthDataService) {
+  }
 
   ngOnInit() {
+    this.subscribers = [
+      this.auth.getUser().subscribe(me => {
+        this.userName = me.userName,
+          this.imgUrl = me.picUrl
+      })
+    ]
   }
-  
+
+  ngOnDestroy() {
+    this.subscribers.forEach(sub => sub.unsubscribe())
+  }
+
   logOut = async () => {
     try {
       await fireBase.logOut()

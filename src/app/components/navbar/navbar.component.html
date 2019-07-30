@@ -1,31 +1,42 @@
 <div id="navbar">
-  <div class="item" routerLink="/">
-    Lobby
+  <div class="items">
+    <div routerLink="/">
+      Lobby
+    </div>
+    <div routerLink="/dm">
+      Direct
+    </div>
+    <div routerLink="/about">
+      About
+    </div>
   </div>
-  <div class="item" routerLink="/about">
-    About
-  </div>
+
   <div class="userInfo">
     <div id="profileDiv">
       <div>{{userName}}</div>
       <img height="40px" [src]="imgUrl" alt="" srcset="">
     </div>
 
-    <div (click)="onLogOutClick()" class="item">
+    <div (click)="onLogOutClick()" class="logoutBtn">
       <i class="fas fa-power-off"></i>
     </div>
   </div>
 </div>
 
-<div *ngIf="logOutCheck">
-  <div id="logOutCheck">
-    <h1>Are you sure?</h1>
-    <p>leaving so soon?</p>
-    <div id="buttons">
-      <div (click)="dontLogOut()" id="stay">NO, Stay!</div>
-      <div (click)="logOut()" id="logOut">Sign me out :(</div>
+<div *ngIf="logOutCheck" class="logOutCheckContainer">
+  <div class="logOutCheck" *ngIf="!loading">
+    <div class="closeSignOutBtn">
+      Sign out
+      <i (click)="dontLogOut()" class="far fa-times-circle"></i>
+    </div>
+    <h2>Are you sure?</h2>
+    <div class="sureBtns">
+      <div (click)="dontLogOut()"><i class="fas fa-undo"></i> No</div>
+      <div (click)="logOut()"><i class="fas fa-walking"></i> Sign out</div>
     </div>
   </div>
 
-  <div id="backDrop" (click)="dontLogOut()"></div>
+  <div class="logOutCheck" *ngIf="loading">Deleting...</div>
+
+  <div (click)="dontLogOut()" class="backDrop"></div>
 </div>

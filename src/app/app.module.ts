@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { ChatsListComponent } from './components/chats-list/chats-list.component';
+import { DirectComponent } from './components/direct/direct.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ChatsListComponent } from './components/chats-list/chats-list.component
     LoginComponent,
     ChatComponent,
     LobbyComponent,
-    ChatsListComponent
+    ChatsListComponent,
+    DirectComponent
   ],
   imports: [
     BrowserModule,

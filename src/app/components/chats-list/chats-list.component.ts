@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 // services
 import { HttpService } from '../../services/http.service'
 import { SocketService } from '../../services/socket.service'
+import { AuthDataService } from '../../services/auth-data.service'
 import { Room } from 'src/app/models/Room';
 import { User } from 'src/app/models/User';
 import { Subscription } from 'rxjs';
@@ -24,18 +25,16 @@ export class ChatsListComponent implements OnInit, OnDestroy {
   private loading: boolean = false
   private roomList: Array<Room> = []
 
-  private me: User = {
-    uid: window.localStorage.getItem('uid'),
-    userName: window.localStorage.getItem('username'),
-    picUrl: window.localStorage.getItem('photoURL')
-  }
+  private me: User;
 
   // sort booleans
   private sortByOnlineUsers: boolean = null
   private sortByRoomName: boolean = null
   private sortByRoomOwner: boolean = null
+  private auth: AuthDataService;
 
-  constructor(SocketService: SocketService, private HttpService: HttpService, router: Router) {
+  constructor(SocketService: SocketService, private HttpService: HttpService, router: Router, auth: AuthDataService) {
+    this.auth = auth
     this.socket = SocketService
     this.router = router
   }
@@ -43,6 +42,9 @@ export class ChatsListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loading = true
     this.subscribers = [
+      //get me auth info
+      this.auth.getUser().subscribe(me => this.me = me),
+      // get room list
       this.HttpService.getRoomList().subscribe((res: Array<Room>) => {
         // set all current rooms
         this.roomList = res

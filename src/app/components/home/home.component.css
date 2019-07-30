@@ -2,5 +2,18 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 10% 90%
+  grid-template-rows: 5% 95%
+}
+
+app-navbar {
+  width: 100%;
+  height: 100%;
+  background-color: #24292E;
+  display: flex;
+  justify-content: center
+}
+
+app-content {
+  display: flex;
+  justify-content: center;
 }

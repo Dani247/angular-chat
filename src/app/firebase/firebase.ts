@@ -18,11 +18,6 @@ class Firebase {
     window.localStorage.clear()
     return firebase.auth().signOut()
   }
-
-  public isAuth = (): boolean => {
-    const token = window.localStorage.getItem('accessToken')
-    return token ? true : false
-  }
 }
 
 export const fireBase = new Firebase()
