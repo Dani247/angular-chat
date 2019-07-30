@@ -13,7 +13,6 @@ app.use(bodyParser.json())
 
 let rooms = []
 let messages = []
-let userCount = 0
 
 app.get('/room/:roomId', (req, res) => {
   const room = rooms.find(room => {
@@ -41,6 +40,7 @@ app.post('/room', (req, res) => {
     const newRoom = { roomId: uid, roomName, roomOwner, messages: [], onlineUsers: [] }
     rooms = [...rooms, newRoom]
 
+    io.emit('chat-list', rooms)
     res.status(200).json({ msg: 'room created', room: newRoom })
   }
 })
@@ -94,7 +94,8 @@ io.on('connection', socket => {
   })
 
   // room deleted
-  socket.on('room-deleted', () => {
+  socket.on('room-deleted', (roomId) => {
+    io.emit('deleted-' + roomId, true)
     io.emit('chat-list', rooms)
   })
 
