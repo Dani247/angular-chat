@@ -38,6 +38,10 @@
     <div id="chatInput">
       <input autocomplete="off" id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
         placeholder="Message">
+      <div class="inputIcons">
+        <i class="far fa-smile"></i>
+        <i class="fas fa-angle-right" (click)="sendMessage()"></i>
+      </div>
     </div>
   </div>
 </div>

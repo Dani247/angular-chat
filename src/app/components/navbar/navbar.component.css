@@ -26,7 +26,11 @@
 .items div:hover {
   cursor: pointer;
   color: #8FBDE9;
-  background-color: #3184D7;
+  background-color: rgb(42, 42, 42);
+}
+
+.items div:focus {
+  outline: 0
 }
 
 .userInfo {
@@ -85,7 +89,7 @@
 .sureBtns {
   text-align: center;
   height: 100%;
-  width: 40%;
+  width: 60%;
   display: -webkit-box;
   display: flex;
   justify-content: space-around;
@@ -144,6 +148,12 @@
 
 .logoutBtn i:hover {
   box-shadow: 0 5px 5px rgba(0, 144, 240, 1);
+}
+
+@media (max-width: 1366px) {
+  .sureBtns {
+    width: 100%
+  }
 }
 
 @media (max-width: 1280px) {

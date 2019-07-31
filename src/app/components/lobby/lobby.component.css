@@ -107,7 +107,7 @@ app-chats-list::-webkit-scrollbar { /* WebKit */
 .sureBtns {
   text-align: center;
   height: 100%;
-  width: 40%;
+  width: 60%;
   display: -webkit-box;
   display: flex;
   justify-content: space-around;
@@ -144,4 +144,10 @@ app-chats-list::-webkit-scrollbar { /* WebKit */
 .createBtn:hover {
   cursor: pointer;
   box-shadow: 0 15px 15px rgba(10,16,20,.24);
+}
+
+@media (max-width: 1366px) {
+  .sureBtns {
+    width: 100%;
+  }
 }

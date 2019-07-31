@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.navRoute.navigate(['/'])
         }
       ),
-      // socket listener for romm info updates
+      // socket listener for room info updates
       this.socket.listen('roomInfo-' + this.roomId).subscribe(
         (data: Room) => this.roomInfo = data
       ),
@@ -82,6 +82,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     ]
 
     this.socket.emit('join-room', { roomId: this.roomId, user: this.me })
+
     window.addEventListener('beforeunload', () => this.socket.emit('leave-room', { roomId: this.roomId, user: this.me }))
     document.getElementById('chat-input').focus()
   }
@@ -108,20 +109,23 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.messages.push(msg)
   }
 
-  sendMessage = (msg: string) => {
-    const newMessage: Message = {
-      message: this.message,
-      user: this.me,
-      roomId: this.roomId
-    }
+  sendMessage = () => {
+    const msg = this.message.trim()
+    if (msg.length) {
+      const newMessage: Message = {
+        message: msg,
+        user: this.me,
+        roomId: this.roomId
+      }
 
-    this.socket.emit('msg', newMessage)
+      this.socket.emit('msg', newMessage)
+      this.message = ''
+    }
   }
 
   onInputKeyPress = (e: KeyboardEvent): void => {
     if (e.key === 'Enter') {
-      this.sendMessage(this.message)
-      this.message = ''
+      this.sendMessage()
     }
   }
 

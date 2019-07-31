@@ -5,7 +5,7 @@
   padding: 20px;
   margin: 20px;
   height: 6%;
-  box-shadow: 0 8px 8px rgba(10,16,20,.2);
+  box-shadow: 0 6px 6px rgba(10,16,20,.2);
   transition-duration: 100ms
 }
 
@@ -28,8 +28,7 @@
 
 .roomListHeader {
   height: 8%;
-  background-color: #1E93D1;
-  color: white;
+  background-color: #eee;
   margin-left: 0;
   margin-right: 0;
   margin-top: 10px;

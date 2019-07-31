@@ -32,18 +32,27 @@
 
 #chatFeed {
   overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
   padding: 20px;
+}
+
+#chatFeed::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 #chatInput {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-left: 10px;
+  padding-right: 10px
 }
 
 #chatInput input {
   font-size: 100%;
-  width: 90%;
+  width: 100%;
   padding: 15px;
   border-radius: 18px;
   border: 1px solid #348ddf;
@@ -113,6 +122,13 @@
 
 .roomUsers {
   overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.roomUsers::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 .onlineUser {
@@ -158,4 +174,40 @@
 
 #editNameInput:focus {
   border: 2px solid #348ddf;
+}
+
+.inputIcons {
+  display: flex;
+  font-size: 1.5em;
+  width: 10%;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+}
+
+.inputIcons i {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+  padding: 0.5em;
+  background: white;
+}
+
+.inputIcons i:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);  
+}
+
+@media (max-width: 1440px) {
+  #chatGrid {
+    width: 100%;
+    grid-template-columns: 20% 80%;
+  }
+  #chatInfo {
+    margin: 0;
+  }
+  #chat {
+    margin: 0
+  }
 }
