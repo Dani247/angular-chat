@@ -24,7 +24,7 @@
 </div>
 
 <div *ngIf="logOutCheck" class="logOutCheckContainer">
-  <div class="logOutCheck" *ngIf="!loading">
+  <div class="logOutCheck">
     <div class="closeSignOutBtn">
       Sign out
       <i (click)="dontLogOut()" class="far fa-times-circle"></i>
@@ -35,8 +35,6 @@
       <div (click)="logOut()"><i class="fas fa-walking"></i> Sign out</div>
     </div>
   </div>
-
-  <div class="logOutCheck" *ngIf="loading">Deleting...</div>
 
   <div (click)="dontLogOut()" class="backDrop"></div>
 </div>

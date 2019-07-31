@@ -72,7 +72,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
     }
   }
 
-  onShowDeleteRoomClick = (id: string): void => {
+  onShowDeleteRoomClick = (id?: string): void => {
     this.deletingId = id
     if (!this.loading) this.showDeleteRoom = !this.showDeleteRoom
   }
