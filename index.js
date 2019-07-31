@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 
 let rooms = []
 let messages = []
+let repeatedUsers = []
 
 app.get('/room/:roomId', (req, res) => {
   const room = rooms.find(room => {
@@ -107,10 +108,17 @@ io.on('connection', socket => {
       return room.roomId === roomId
     })
 
+
     if (roomIndex >= 0) {
-      rooms[roomIndex].onlineUsers = [...rooms[roomIndex].onlineUsers, user]
-      io.emit('roomInfo-' + roomId, rooms[roomIndex])
-      io.emit('chat-list', rooms)
+      // see if user is already in the room
+      const findUser = rooms[roomIndex].onlineUsers.find(usr => usr.uid === user.uid)
+      if (!findUser) {
+        rooms[roomIndex].onlineUsers = [...rooms[roomIndex].onlineUsers, user]
+        io.emit('roomInfo-' + roomId, rooms[roomIndex])
+        io.emit('chat-list', rooms)
+      } else {
+        repeatedUsers = [...repeatedUsers, { uid: user.uid, roomId }]
+      }
     }
   })
 
@@ -123,9 +131,16 @@ io.on('connection', socket => {
     })
 
     if (roomIndex >= 0) {
-      rooms[roomIndex].onlineUsers = rooms[roomIndex].onlineUsers.filter(u => u.uid !== user.uid)
-      io.emit('roomInfo-' + roomId, rooms[roomIndex])
-      io.emit('chat-list', rooms)
+      // see if its repeated
+      const findRepeated = repeatedUsers.find(repeated => repeated.uid === user.uid && repeated.roomId === roomId)
+
+      if (!findRepeated) {
+        rooms[roomIndex].onlineUsers = rooms[roomIndex].onlineUsers.filter(u => u.uid !== user.uid)
+        io.emit('roomInfo-' + roomId, rooms[roomIndex])
+        io.emit('chat-list', rooms)
+      } else {
+        repeatedUsers = repeatedUsers.filter(repeated => repeated.uid !== user.uid && repeated.roomId !== roomId)
+      }
     }
   })
 
