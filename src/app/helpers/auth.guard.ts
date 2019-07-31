@@ -5,8 +5,8 @@ import { AuthDataService } from '../services/auth-data.service'
 @Injectable({ providedIn: 'root' })
 
 export class AuthGuard implements CanActivate {
-  private router: Router;
-  private isAuth: boolean = false;
+  router: Router;
+  isAuth: boolean = false;
 
   constructor(router: Router, auth: AuthDataService) {
     auth.getUser().subscribe(me => me.uid ? this.isAuth = true : this.isAuth = false);

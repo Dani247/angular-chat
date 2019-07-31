@@ -16,15 +16,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit, OnDestroy {
-  private socket: SocketService;
-  private roomName: string = ''
-  private loading: boolean = false
-  private showCreateRoom: boolean = false
-  private showDeleteRoom: boolean = false
-  private deletingId: string = ''
-  private auth: AuthDataService;
-  private me: User;
-  private subscribers: Subscription[]
+  socket: SocketService;
+  roomName: string = ''
+  loading: boolean = false
+  showCreateRoom: boolean = false
+  showDeleteRoom: boolean = false
+  deletingId: string = ''
+  auth: AuthDataService;
+  me: User;
+  subscribers: Subscription[]
 
   constructor(SocketService: SocketService, private HttpService: HttpService, auth: AuthDataService) {
     this.auth = auth

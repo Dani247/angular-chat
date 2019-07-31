@@ -2,7 +2,7 @@ import * as firebase from 'firebase';
 import { config } from './config'
 
 class Firebase {
-  private gitHubProvider;
+  gitHubProvider: any;
 
   constructor() {
     firebase.initializeApp(config)

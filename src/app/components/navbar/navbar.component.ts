@@ -12,10 +12,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  private subscribers: Subscription[]
-  private userName: string
-  private imgUrl: string
-  private logOutCheck: boolean = false;
+  subscribers: Subscription[]
+  userName: string
+  imgUrl: string
+  logOutCheck: boolean = false;
 
   constructor(private route: Router, private auth: AuthDataService) {
   }

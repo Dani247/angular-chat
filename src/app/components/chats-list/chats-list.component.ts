@@ -21,17 +21,17 @@ export class ChatsListComponent implements OnInit, OnDestroy {
   socket: SocketService;
   router: Router
 
-  private subscribers: Subscription[] = []
-  private loading: boolean = false
-  private roomList: Array<Room> = []
+  subscribers: Subscription[] = []
+  loading: boolean = false
+  roomList: Array<Room> = []
 
-  private me: User;
+  me: User;
 
   // sort booleans
-  private sortByOnlineUsers: boolean = null
-  private sortByRoomName: boolean = null
-  private sortByRoomOwner: boolean = null
-  private auth: AuthDataService;
+  sortByOnlineUsers: boolean = null
+  sortByRoomName: boolean = null
+  sortByRoomOwner: boolean = null
+  auth: AuthDataService;
 
   constructor(SocketService: SocketService, private HttpService: HttpService, router: Router, auth: AuthDataService) {
     this.auth = auth

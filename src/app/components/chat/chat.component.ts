@@ -17,20 +17,20 @@ import { Subscription } from 'rxjs';
 })
 
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
-  private subscribers: Subscription[]
-  private message: string = '';
-  private messages: Message[];
-  private roomInfo: Room = {
+  subscribers: Subscription[]
+  message: string = '';
+  messages: Message[];
+  roomInfo: Room = {
     roomId: null,
     roomName: null,
     roomOwner: null,
     messages: [],
     onlineUsers: []
   };
-  private me: User;
-  private roomId: string = ''
-  private editingName: boolean = false
-  private showEmojis: boolean = false
+  me: User;
+  roomId: string = ''
+  editingName: boolean = false
+  showEmojis: boolean = false
 
   socket: SocketService;
   route: ActivatedRoute
