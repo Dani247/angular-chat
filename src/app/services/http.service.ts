@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import io from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Room } from '../models/Room';
+
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  readonly url: string = 'http://localhost:3001';
+  readonly url: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {
 
