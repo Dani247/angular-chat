@@ -44,10 +44,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.auth.setUser(newUser)
-
-
       console.log('login successfull', user)
-      console.log(fireBase.isAuth())
       this.route.navigate([''])
     } catch (error) {
       console.log('login failed', error)

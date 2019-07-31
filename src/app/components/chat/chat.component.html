@@ -39,8 +39,16 @@
       <input autocomplete="off" id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
         placeholder="Message">
       <div class="inputIcons">
-        <i class="far fa-smile"></i>
+        <i class="far fa-smile" (click)="showEmojis=true"></i>
         <i class="fas fa-angle-right" (click)="sendMessage()"></i>
+      </div>
+      <div [ngStyle]="{ 'display': showEmojis ? 'block' : 'none' }">
+        <div class="emojis">
+          <emoji-mart (emojiSelect)="onEmojiSelect($event)" categoriesIcons="" recent="" emoji="" title=""
+            showPreview="false" set="messenger">
+          </emoji-mart>
+        </div>
+        <div (click)="showEmojis=false" class="backdrop"></div>
       </div>
     </div>
   </div>

@@ -3,7 +3,6 @@ import { config } from './config'
 
 class Firebase {
   private gitHubProvider;
-  private auth: boolean = false;
 
   constructor() {
     firebase.initializeApp(config)

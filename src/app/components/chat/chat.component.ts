@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   private me: User;
   private roomId: string = ''
   private editingName: boolean = false
+  private showEmojis: boolean = false
 
   socket: SocketService;
   route: ActivatedRoute
@@ -164,5 +165,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
       },
       err => console.error(err)
     )
+  }
+
+  onEmojiSelect = (e): void => {
+    this.message += e.emoji.native
   }
 }

@@ -199,6 +199,28 @@
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);  
 }
 
+.emojis {
+  position: absolute;
+  overflow-y: scroll;
+  height: 50%;
+  background: white;
+  padding: 10px;
+  z-index: 3;
+  bottom: 15vh;
+  right: 17vw;
+}
+
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+
 @media (max-width: 1440px) {
   #chatGrid {
     width: 100%;
@@ -209,5 +231,14 @@
   }
   #chat {
     margin: 0
+  }
+  .emojis {
+    right: 10vw;
+  }
+}
+
+@media (max-width: 1280px) {
+  .emojis {
+    right: 0;
   }
 }
