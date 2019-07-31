@@ -156,6 +156,9 @@ io.on('connection', socket => {
 
 // server running
 http.listen(port, err => {
-  if (err) throw err
-  console.log(`Server running [${port}]`)
+  if (err) {
+    console.lor(err)
+  } else {
+    console.log(`Server running [${port}]`)
+  }
 })
