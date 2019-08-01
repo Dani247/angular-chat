@@ -1,0 +1,151 @@
+.chatTitle {
+  width: 90%;
+  padding: 30px;
+  font-size: 1.4em;
+}
+
+#chat {
+  height: 80%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 85% 15%;
+  background: #FFFFFF;
+  margin: 20px;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
+}
+
+#chatFeed {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  padding: 20px;
+}
+
+#chatFeed::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+#chatInput {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 10px;
+  padding-right: 10px
+}
+
+#chatInput input {
+  font-size: 100%;
+  width: 100%;
+  padding: 15px;
+  border-radius: 18px;
+  border: 1px solid #348ddf;
+  outline: none;
+  transition: 0.2s linear;
+}
+
+#chatInput input:focus {
+  border: 2px solid #348ddf;
+}
+
+.message {
+  padding: 10px;
+  background: #F1F0F0;
+  width: fit-content;
+  border-radius: 18px; 
+  margin: 10px
+}
+
+.myMessage {
+  padding: 10px;
+  background: #1E93D1;
+  width: fit-content;
+  border-radius: 18px; 
+  margin: 10px;
+  color: white;
+}
+
+.messageContent{
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition-duration: 500ms
+}
+
+.messageContentRight {
+  justify-content: flex-end
+}
+
+
+.messageContent img {
+  border-radius: 40%;
+}
+
+#userNameTooltip {
+  border-radius: 18px;
+  padding: 10px;
+  background-color: rgba(235, 90, 92, 0.5);
+  opacity: 0.08;
+  transition: opacity 0.2s ease-out;
+  color: white
+}
+
+.messageContent:hover {
+  background-color: rgb(194, 194, 194)
+}
+
+.messageContent:hover > #userNameTooltip {
+  opacity: 1;
+  background-color: rgba(235, 90, 92, 0.6);
+}
+
+.messageContent:active > #userNameTooltip {
+  opacity: 1;
+}
+
+
+.inputIcons {
+  display: flex;
+  font-size: 1.5em;
+  width: 10%;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+}
+
+.inputIcons i {
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+  padding: 0.5em;
+  background: white;
+}
+
+.inputIcons i:hover {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);  
+}
+
+.emojis {
+  position: absolute;
+  overflow-y: scroll;
+  height: 50%;
+  background: white;
+  padding: 10px;
+  z-index: 3;
+  bottom: 15vh;
+  right: 17vw;
+}
+
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  z-index: 2;
+  top: 0;
+  left: 0;
+}

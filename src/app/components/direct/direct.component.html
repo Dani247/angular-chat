@@ -1,1 +1,12 @@
-<p>direct works!</p>
+<div>
+  <div *ngFor="let user of onlineUsers">
+    <div *ngIf="!isMe(user.uid)" class="user" (click)="openChat(user)">
+      <div>
+        <img [src]="user.picUrl" height="40px" alt="">
+      </div>
+      <div>
+        {{user.userName}}
+      </div>
+    </div>
+  </div>
+</div>

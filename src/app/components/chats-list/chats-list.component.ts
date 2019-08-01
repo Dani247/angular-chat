@@ -48,7 +48,6 @@ export class ChatsListComponent implements OnInit, OnDestroy {
       this.HttpService.getRoomList().subscribe((res: Array<Room>) => {
         // set all current rooms
         this.roomList = res
-        console.log('getRoomList', this.roomList)
       }),
       // listen to any change
       this.socket.listen('chat-list').subscribe((rooms: Array<Room>) => {
