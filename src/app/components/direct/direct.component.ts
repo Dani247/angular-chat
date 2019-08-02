@@ -24,7 +24,7 @@ export class DirectComponent implements OnInit, OnDestroy {
     this.subscriptions = [
       this.AuthService.getUser().subscribe((me: User) => this.me = me),
       this.UsersService.getOnlineUsers().subscribe((users: User[]) => {
-        this.onlineUsers = users
+        this.onlineUsers = users.filter(user => user.uid !== this.me.uid)
       })
     ]
   }

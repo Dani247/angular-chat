@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://sockets-chat-api.herokuapp.com',
+  apiUrl: 'http://localhost:3001',
   firebaseApiKey: 'AIzaSyCQKjbA4OIEgnLIGOGAbiB8mX6H1iNUH8k'
 };
 

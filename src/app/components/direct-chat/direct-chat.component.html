@@ -1,9 +1,8 @@
-<div class="chatTitle">
-  chatting with <span *ngIf="!userOne()">{{roomInfo.user1.userName}}</span> <span
-    *ngIf="userOne()">{{roomInfo.user2.userName}}</span>
+<div class="chatTitle" *ngIf="!loading">
+  chatting with {{user2.userName}}
 </div>
 
-<div id="chat">
+<div id="chat" *ngIf="!loading">
   <div id="chatFeed">
     <div [ngClass]="setSideClass(msg.user.uid)" *ngFor="let msg of roomInfo.messages">
       <div *ngIf="isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
@@ -34,4 +33,9 @@
       <div (click)="showEmojis=false" class="backdrop"></div>
     </div>
   </div>
+</div>
+
+
+<div *ngIf="loading">
+  Loading...
 </div>
