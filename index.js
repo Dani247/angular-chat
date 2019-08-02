@@ -16,6 +16,7 @@ let repeatedUsers = []
 
 let directRooms = []
 let onlineUsers = []
+let repeatedOnlineUsers = []
 
 app.get('/dmroom/:roomId', (req, res) => {
   const { roomId } = req.params
@@ -120,17 +121,30 @@ app.delete('/room/:roomId', (req, res) => {
 io.on('connection', socket => {
   // loged in
   socket.on('loggedIn', who => {
-    onlineUsers = [who, ...onlineUsers]
-    io.emit('who', onlineUsers)
+    const isOnline = onlineUsers.find(user => user.uid === who.uid)
+
+    if (isOnline) {
+      console.log('user is already online')
+      repeatedOnlineUsers = [...repeatedOnlineUsers, who]
+    } else {
+      console.log('user logged in')
+      onlineUsers = [who, ...onlineUsers]
+      io.emit('who', onlineUsers)
+    }
   })
 
   // loged out
   socket.on('loggedOut', who => {
-    console.log('user logged out', who)
-    onlineUsers = onlineUsers.filter(user => user.uid !== who.uid)
+    const isRepeated = repeatedOnlineUsers.find(user => user.uid === who.uid)
 
-    console.log('onlineUsers', onlineUsers)
-    io.emit('who', onlineUsers)
+    if (isRepeated) {
+      console.log('removed repeated')
+      repeatedOnlineUsers = repeatedOnlineUsers.filter(user => user.uid !== who.uid)
+    } else {
+      console.log('user logged out')
+      onlineUsers = onlineUsers.filter(user => user.uid !== who.uid)
+      io.emit('who', onlineUsers)
+    }
   })
 
   // room creation
