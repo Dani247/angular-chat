@@ -1,6 +1,6 @@
-<div *ngIf="onlineUsers.length > 0">
-  <div *ngFor="let user of onlineUsers">
-    <div class="user" (click)="openChat(user)">
+<div *ngIf="onlineUsers.length > 0" class="container">
+  <div *ngFor="let user of onlineUsers" class="user" (click)="openChat(user)">
+    <div class="userInfo">
       <div>
         <img [src]="user.picUrl" height="40px" alt="">
       </div>
@@ -8,6 +8,8 @@
         {{user.userName}}
       </div>
     </div>
+
+    <div class="icons"><i class="fas fa-angle-right"></i></div>
   </div>
 </div>
 

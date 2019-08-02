@@ -5,7 +5,8 @@
       Create a room
       <i (click)="onShowCreateRoomClick()" class="far fa-times-circle"></i>
     </div>
-    <input id="addRoomInput" type="text" placeholder="Room name (max 20 char)" maxlength="20" [(ngModel)]="roomName">
+    <input autocomplete="off" id="addRoomInput" type="text" placeholder="Room name (max 20 char)" maxlength="20"
+      [(ngModel)]="roomName">
     <label class="charLeftDisplay" *ngIf="roomName">{{20 - roomName.length}} characters left</label>
     <div class="createBtn" (click)="onCreateRoomClick()">{{ loading ? 'Creating...' : 'Create!' }}</div>
   </div>

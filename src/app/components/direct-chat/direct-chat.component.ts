@@ -35,9 +35,9 @@ export class DirectChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private Router: Router,
-    private aRoute: ActivatedRoute, 
-    private HttpService: HttpService, 
-    private AuthService: AuthDataService, 
+    private aRoute: ActivatedRoute,
+    private HttpService: HttpService,
+    private AuthService: AuthDataService,
     private SocketService: SocketService
   ) { }
 
@@ -117,5 +117,9 @@ export class DirectChatComponent implements OnInit, OnDestroy {
       myMessage: this.isMe(uid),
       message: !this.isMe(uid)
     }
+  }
+
+  onEmojiSelect = (e): void => {
+    this.message += e.emoji.native
   }
 }

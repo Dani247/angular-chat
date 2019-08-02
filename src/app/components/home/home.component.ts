@@ -5,6 +5,7 @@ import { AuthDataService } from '../../services/auth-data.service'
 import { User } from 'src/app/models/User';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../services/users.service'
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +16,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[]
   me: User;
 
-  constructor(private SocketService: SocketService, private AuthData: AuthDataService, private UsersService: UsersService) { }
+  constructor(
+    private SocketService: SocketService,
+    private AuthData: AuthDataService,
+    private UsersService: UsersService,
+    private HttpService: HttpService
+  ) { }
 
   ngOnInit() {
     this.subscriptions = [
       this.AuthData.getUser().subscribe((me: User) => {
         this.me = me
       }),
+      this.HttpService.getOnlineUsers().subscribe(
+        (users: User[]) => {
+          this.UsersService.setOnlineUsers(users)
+        }
+      ),
       this.SocketService.listen('who').subscribe((users: User[]) => {
         this.UsersService.setOnlineUsers(users)
       })

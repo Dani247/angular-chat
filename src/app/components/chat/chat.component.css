@@ -202,7 +202,6 @@
 .emojis {
   position: absolute;
   overflow-y: scroll;
-  height: 50%;
   background: white;
   padding: 10px;
   z-index: 3;
