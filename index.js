@@ -203,6 +203,15 @@ io.on('connection', socket => {
     // emmit message
     io.emit('msg-' + msg.roomId, msg)
   })
+
+  // direct message
+  socket.on('directMsg', msg => {
+    // add message to room obj
+    const roomIndex = directRooms.findIndex(room => room.roomId === msg.roomId)
+    directRooms[roomIndex].messages = [...directRooms[roomIndex].messages, msg]
+    // emmit message
+    io.emit('directMsg-' + msg.roomId, msg)
+  })
 })
 
 // server running
