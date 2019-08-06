@@ -1,9 +1,14 @@
 <div class="chatTitle" *ngIf="!loading">
-  chatting with {{user2.userName}}
+  <div class="isOnlineBackdrop">
+    <img [src]="user2.picUrl" alt="" width="70" height="70">
+  </div>
+  <span>{{user2.userName}}</span>
+  <span *ngIf="isOnline()" [ngStyle]="{ color: 'green' }">Online</span>
+  <span *ngIf="!isOnline()" [ngStyle]="{ color: 'grey' }">Offline</span>
 </div>
 
 <div id="chat" *ngIf="!loading">
-  <div id="chatFeed">
+  <div id="chatFeed" #chatFeed>
     <div [ngClass]="setSideClass(msg.user.uid)" *ngFor="let msg of roomInfo.messages">
       <div *ngIf="isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
       <img *ngIf="!isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">

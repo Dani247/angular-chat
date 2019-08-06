@@ -1,0 +1,28 @@
+<div class="ham">
+  <i (click)="onShowMenuCLick()" class="fas fa-bars"></i>
+</div>
+
+<div *ngIf="showMenu" class="menu" [ngStyle]="menuAnimationStyles()">
+  <div class="navItems">
+    <div (click)="closeMenu()" routerLink="/">
+      Chat rooms
+    </div>
+    <div (click)="closeMenu()" routerLink="/dm">
+      Direct message
+    </div>
+    <div (click)="closeMenu()" routerLink="/about">
+      About
+    </div>
+  </div>
+
+  <div class="userInfo">
+    <div id="profileDiv">
+      <img height="40px" src="https://avatars0.githubusercontent.com/u/31719368?v=4" alt="" srcset="">
+    </div>
+
+    <div (click)="onLogOutClick()" class="logoutBtn">
+      <i class="fas fa-power-off"></i>
+    </div>
+  </div>
+</div>
+<div *ngIf="showMenu" class="backdrop" (click)="closeMenu()" [ngStyle]="backdropAnimationStyles()"></div> 

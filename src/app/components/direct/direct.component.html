@@ -1,4 +1,9 @@
-<div *ngIf="onlineUsers.length > 0" class="container">
+<div class="container">
+  <div class="titleMessage">- Direct Message -</div>
+
+  <div *ngIf="onlineUsers.length <= 0">No one is online</div>
+  <div *ngIf="onlineUsers.length > 0">Online people</div>
+  
   <div *ngFor="let user of onlineUsers" class="user" (click)="openChat(user)">
     <div class="userInfo">
       <div>
@@ -11,8 +16,4 @@
 
     <div class="icons"><i class="fas fa-angle-right"></i></div>
   </div>
-</div>
-
-<div *ngIf="onlineUsers.length <= 0">
-  no one is online
 </div>

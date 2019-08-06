@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 
 import { SocketService } from '../../services/socket.service'
 import { HttpService } from '../../services/http.service'
@@ -17,6 +17,8 @@ import { Subscription } from 'rxjs';
 })
 
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('chatInput', {static: true}) chatInput: ElementRef
+  @ViewChild('chatFeed', {static: false}) chatFeed: ElementRef
   subscribers: Subscription[]
   message: string = '';
   messages: Message[];
@@ -85,7 +87,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.socket.emit('join-room', { roomId: this.roomId, user: this.me })
 
     window.addEventListener('beforeunload', () => this.socket.emit('leave-room', { roomId: this.roomId, user: this.me }))
-    document.getElementById('chat-input').focus()
+    this.chatInput.nativeElement.focus()
   }
 
   ngOnDestroy() {
@@ -102,7 +104,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   updateScroll() {
-    let element = document.getElementById("chatFeed");
+    const element = this.chatFeed.nativeElement;
     element.scrollTop = element.scrollHeight;
   }
 

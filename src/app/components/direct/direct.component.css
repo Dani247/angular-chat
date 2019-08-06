@@ -19,9 +19,11 @@
 
 .container {
   width: 100%;
-  padding: 40px;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column
 }
 
 .userInfo {
@@ -38,4 +40,9 @@
 
 .icons i {
   font-size: 1.5em;
+}
+
+.titleMessage {
+  margin: 20px 0;
+  font-size: 1.3em;
 }

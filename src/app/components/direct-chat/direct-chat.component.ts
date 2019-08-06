@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
@@ -8,6 +8,7 @@ import { User } from 'src/app/models/User';
 import { Message } from 'src/app/models/Message';
 import { SocketService } from 'src/app/services/socket.service';
 import { Room } from 'src/app/models/Room';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-direct-chat',
@@ -32,17 +33,21 @@ export class DirectChatComponent implements OnInit, OnDestroy {
   showEmojis: boolean = false
   message: string = '';
   loading: boolean = true
-
+  onlineUsers: User[] = []
+  @ViewChild('chatFeed', {static: false}) chatFeed: ElementRef
+  
   constructor(
     private Router: Router,
     private aRoute: ActivatedRoute,
     private HttpService: HttpService,
     private AuthService: AuthDataService,
-    private SocketService: SocketService
+    private SocketService: SocketService,
+    private UsersService: UsersService
   ) { }
 
   ngOnInit() {
     this.subscriptions = [
+      this.UsersService.getOnlineUsers().subscribe((users: User[]) => this.onlineUsers = users),
       this.AuthService.getUser().subscribe((me: User) => this.me = me),
       this.aRoute.params.subscribe(params => this.roomId = params.roomId),
       this.HttpService.getDirectRoom(this.roomId).subscribe(
@@ -79,7 +84,7 @@ export class DirectChatComponent implements OnInit, OnDestroy {
   }
 
   updateScroll() {
-    let element = document.getElementById("chatFeed");
+    const element = this.chatFeed.nativeElement;
     element.scrollTop = element.scrollHeight;
   }
 
@@ -122,4 +127,6 @@ export class DirectChatComponent implements OnInit, OnDestroy {
   onEmojiSelect = (e): void => {
     this.message += e.emoji.native
   }
+
+  isOnline = (): boolean => this.onlineUsers.find(user => user.uid === this.user2.uid) ? true : false
 }

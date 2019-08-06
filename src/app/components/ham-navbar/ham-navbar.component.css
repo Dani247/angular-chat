@@ -1,0 +1,75 @@
+.ham {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.ham i {
+  color: white;
+  margin-right: 15px;
+  font-size: 1.8em;
+  padding: 0 20px;
+}
+
+.menu {
+  height: 100vh;
+  width: 70vw;
+  background-color: #24292E;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.backdrop {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.navItems div {
+  color: #8FBDE9;
+  background-color: rgb(50, 50, 50);
+  margin: 10px;
+  padding: 15px;
+}
+
+.userInfo {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #8FBDE9;
+  background-color: rgb(50, 50, 50);
+}
+
+@keyframes slideRight {
+  0% { width: 0 }
+  50% { width: 85vw }
+  100% { width: 70vw }
+}
+
+@keyframes slideLeft {
+  0% { width: 70vw}
+  50% { width: 85vw}
+  75% { opacity: 1 }
+  100% { width: 0; opacity: 0 }
+}
+
+@keyframes fadeIn {
+  from { background: rgba(0, 0, 0, 0); }
+  to { background: rgba(0, 0, 0, 0.3); }
+}
+
+@keyframes fadeOut {
+  from { background: rgba(0, 0, 0, 0.3); }
+  to { background: rgba(0, 0, 0, 0); }
+}

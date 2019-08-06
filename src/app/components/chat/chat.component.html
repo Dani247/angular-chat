@@ -21,7 +21,7 @@
   </div>
 
   <div id="chat">
-    <div id="chatFeed">
+    <div id="chatFeed" #chatFeed>
       <div [ngClass]="setSideClass(msg.user.uid)" *ngFor="let msg of roomInfo.messages">
         <div *ngIf="isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
         <img *ngIf="!isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">
@@ -37,7 +37,7 @@
 
     <div id="chatInput">
       <input autocomplete="off" id="chat-input" (keypress)="onInputKeyPress($event)" [(ngModel)]="message" type="text"
-        placeholder="Message">
+        placeholder="Message" #chatInput>
       <div class="inputIcons">
         <i class="far fa-smile" (click)="showEmojis=true"></i>
         <i class="fas fa-angle-right" (click)="sendMessage()"></i>

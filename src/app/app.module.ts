@@ -16,6 +16,7 @@ import { LobbyComponent } from './components/lobby/lobby.component';
 import { ChatsListComponent } from './components/chats-list/chats-list.component';
 import { DirectComponent } from './components/direct/direct.component';
 import { DirectChatComponent } from './components/direct-chat/direct-chat.component';
+import { HamNavbarComponent } from './components/ham-navbar/ham-navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DirectChatComponent } from './components/direct-chat/direct-chat.compon
     LobbyComponent,
     ChatsListComponent,
     DirectComponent,
-    DirectChatComponent
+    DirectChatComponent,
+    HamNavbarComponent
   ],
   imports: [
     BrowserModule,

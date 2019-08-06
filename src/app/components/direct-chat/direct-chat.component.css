@@ -1,17 +1,26 @@
 .chatTitle {
-  width: 90%;
-  padding: 30px;
+  width: 25%;
+  margin: 25px 0;
   font-size: 1.4em;
-  height: 10%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly
+}
+
+.isOnlineBackdrop {
+  width: 80%;
+  height: 80%;
+  background: red;
+  display: contents
 }
 
 #chat {
-  height: 80%;
+  height: 85%;
   width: 100%;
   display: grid;
   grid-template-rows: 85% 15%;
   background: #FFFFFF;
-  margin: 20px;
   border-radius: 4px;
   box-shadow: 0 8px 8px rgba(10,16,20,.24), 0 0 8px rgba(10,16,20,.12);
 }
