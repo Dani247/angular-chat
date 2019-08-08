@@ -32,6 +32,6 @@ app-direct-chat {
   width: 100%;
 }
 
-.emoji-mart-bar {
-  display: none !important;
+.emoji-mart {
+  width: unset !important
 }

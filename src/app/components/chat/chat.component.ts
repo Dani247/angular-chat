@@ -33,6 +33,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   roomId: string = ''
   editingName: boolean = false
   showEmojis: boolean = false
+  showInfoMobile: boolean = false
+  mobileAnimationTimer: number = 800
 
   socket: SocketService;
   route: ActivatedRoute
@@ -171,5 +173,20 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   onEmojiSelect = (e): void => {
     this.message += e.emoji.native
+  }
+
+  chevronStyles = () => ({ animation: this.showInfoMobile ? `chevronBottom ${this.mobileAnimationTimer}ms forwards` : `chevronTop ${this.mobileAnimationTimer}ms forwards` })
+
+  chatGridStyles = () => {
+    if(window.innerWidth <= 768) {
+      return { animation: this.showInfoMobile ? `showInfoMobile ${this.mobileAnimationTimer}ms forwards` : `hideInfoMobile ${this.mobileAnimationTimer}ms forwards` }
+    } else {
+      return {}
+    }
+  }
+
+  toggleInfoMobile = () => {
+    this.showInfoMobile = !this.showInfoMobile
+    console.log(this.showInfoMobile)
   }
 }

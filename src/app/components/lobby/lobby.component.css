@@ -151,3 +151,9 @@ app-chats-list::-webkit-scrollbar { /* WebKit */
     width: 100%;
   }
 }
+
+@media (max-width: 768px) {
+  .createRoom {
+    width: 80%
+  }
+}

@@ -1,5 +1,5 @@
 <div id="chatGrid">
-  <div id="chatInfo">
+  <div id="chatInfo" [ngStyle]="chatGridStyles()">
     <div class="roomMeta">
       <div *ngIf="!editingName" (click)="toggleEditName()">{{roomInfo.roomName}}</div>
       <input maxlength="20" id="editNameInput" (blur)="toggleEditName()" *ngIf="editingName"
@@ -26,9 +26,9 @@
         <div *ngIf="isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
         <img *ngIf="!isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">
 
-        <div [ngClass]="setMessageClass(msg.user.uid)">
+        <p [ngClass]="setMessageClass(msg.user.uid)">
           {{msg.message}}
-        </div>
+        </p>
 
         <div *ngIf="!isMe(msg.user.uid)" id="userNameTooltip"> {{msg.user.userName}} </div>
         <img *ngIf="isMe(msg.user.uid)" [src]="msg.user.picUrl" width="40" height="40" alt="">
@@ -52,4 +52,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="mobileChatInfo" (click)="toggleInfoMobile()" [ngStyle]="chevronStyles()">
+  <i *ngIf="!showInfoMobile" class="fas fa-info-circle"></i>
+  <i *ngIf="showInfoMobile" class="fas fa-chevron-circle-up"></i>
 </div>

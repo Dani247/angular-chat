@@ -109,3 +109,23 @@
   align-items: center;
   box-shadow: 0 5px 5px rgba(10,16,20,.24);
 }
+
+@media (max-width: 768px) {
+  .titleInfo {
+    display: none;
+  }
+
+  .createRoomBtnContainer {
+    width: 100%;
+  }
+
+  .rowContainer {
+    height: auto;
+    width: 100%
+  }
+
+  .roomItem {
+    flex-direction: column;
+    height: auto;
+  }
+}

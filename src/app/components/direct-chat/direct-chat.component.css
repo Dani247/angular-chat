@@ -170,3 +170,17 @@
     right: 0;
   }
 }
+
+@media (max-width: 768px) {
+  .chatTitle {
+    width: 100%
+  }
+
+  .inputIcons {
+    width: unset
+  }
+
+  .inputIcons i {
+    background: unset
+  }
+}

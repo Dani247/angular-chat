@@ -65,6 +65,7 @@
 }
 
 .message {
+  max-width: 65vw;
   padding: 10px;
   background: #F1F0F0;
   width: fit-content;
@@ -73,6 +74,7 @@
 }
 
 .myMessage {
+  max-width: 65vw;
   padding: 10px;
   background: #1E93D1;
   width: fit-content;
@@ -219,6 +221,9 @@
   left: 0;
 }
 
+.mobileChatInfo {
+  display: none
+}
 
 @media (max-width: 1440px) {
   #chatGrid {
@@ -239,4 +244,73 @@
   .emojis {
     right: 0;
   }
+}
+
+@media (max-width: 768px) {
+  #chatGrid {
+    display: flex
+  }
+
+  #chatInfo {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    background: white
+  }
+
+  #chat {
+    margin: 0;
+    height: 100%;
+    width: 100%
+  }
+
+  .inputIcons {
+    width: unset
+  }
+
+  .inputIcons i {
+    background: unset
+  }
+
+  .mobileChatInfo {
+    display: block;
+    position: fixed;
+    font-size: 2em;
+    left: 0;
+    z-index: 4
+  }
+
+  .mobileChatInfo i {
+    margin: 0 15px;
+    animation: jumping 5s infinite 2s !important;
+  }
+}
+
+@keyframes jumping {
+  0% { margin-top: 0 }
+  5% { margin-top: 15px }
+  10% { margin-top: 0 }
+  15% { margin-top: 15px }
+  25% { margin-top: 0 }
+  100% { margin-top: 0 }
+}
+
+@keyframes chevronBottom {
+  from { bottom: 85%; transform: rotate(0deg) }
+  to { bottom: 5%; transform: rotate(360deg) }
+}
+
+@keyframes chevronTop {
+  from { bottom: 5%; transform: rotate(360deg) }
+  to { bottom: 85%; transform: rotate(0deg) }
+}
+
+@keyframes showInfoMobile {
+  from { height: 0; opacity: 0; }
+  to { height: 100%; opacity: 1; }
+}
+
+@keyframes hideInfoMobile {
+  from { height: 100%; opacity: 1; }
+  to { height: 0; opacity: 0; }
 }
